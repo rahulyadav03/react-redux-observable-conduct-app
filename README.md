@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Conduct application or React-Redux-observables-Application home production ready GoThinster part. This application is build on reactjs and for state management we have used react-observables.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
