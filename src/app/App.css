@@ -7372,3 +7372,6 @@ a.text-dark:hover, a.text-dark:focus {
 .activePaginationColor {
   background-color: #007bff !important;
   color: #fff; }
+
+.customCursor {
+  cursor: pointer; }

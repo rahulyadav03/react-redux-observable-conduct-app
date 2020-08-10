@@ -173,7 +173,7 @@ function ArticleDescription(props) {
             </form>
           </div>
 
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center mb-5">
             <form>
               {articleComments &&
                 articleComments.comments.map((comment, index) => (

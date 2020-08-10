@@ -3,7 +3,10 @@ import React from "react";
 function Feed(props) {
   const { data, fnFavourite } = props;
   return (
-    <div className="feed-details" onClick={() => props.handleClick(data)}>
+    <div
+      className="feed-details customCursor"
+      onClick={() => props.handleClick(data)}
+    >
       {/* */}
       <div className="feed-details-header">
         <div className="feed-details-header-left-section flex-grow-1">

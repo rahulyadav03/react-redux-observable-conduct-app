@@ -82,6 +82,9 @@ export const loginErrorEpic = (action$, state$) =>
 export const logoutEpic = (action$, state$) =>
   action$.pipe(
     ofType(authActions.logout),
+    tap(() => {
+      history.push(ROUTES.HOME);
+    }),
     mergeMap(action => {
       return of(profileActions.noop());
     })

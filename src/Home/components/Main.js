@@ -11,14 +11,24 @@ import * as homeActions from "../home.actions";
 import * as articleActions from "../../Articles/acticles.actions";
 import serverAPi from "../../common/utils/apiUrl";
 
+import * as homeReducer from "../home.reducers";
+import * as popularReducer from "../../common/tagsRedux/tags.reducers";
+
 function Main(props) {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const allTags = useSelector(state => state.popularTags.allTags);
-  const allGlobalFeed = useSelector(state => state.home.globalFeedData);
-  const setCurrentPage = useSelector(state => state.home.setCurrentPage);
-  const setTagName = useSelector(state => state.home.setTagName);
+  const allTags = useSelector(popularReducer.fetchSetTagNameData);
+  //const allTags = useSelector(state => state.popularTags.allTags);
+
+  //const allGlobalFeed = useSelector(state => state.home.globalFeedData);
+  const allGlobalFeed = useSelector(homeReducer.fetchAllGlobalFeedData);
+
+  //const setCurrentPage = useSelector(state => state.home.setCurrentPage);
+  const setCurrentPage = useSelector(homeReducer.fetchCurrentPageData);
+
+  //const setTagName = useSelector(state => state.home.setTagName);
+  const setTagName = useSelector(homeReducer.fetchSetTagNameData);
 
   const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 

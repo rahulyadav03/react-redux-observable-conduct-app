@@ -9,7 +9,7 @@ function PopularTag(props) {
         <div className="tag-section">
           {allTags.tags.map((data, index) => (
             <div
-              className="tag-default"
+              className="tag-default customCursor"
               key={index}
               onClick={() => fnFetchTagData(data)}
             >

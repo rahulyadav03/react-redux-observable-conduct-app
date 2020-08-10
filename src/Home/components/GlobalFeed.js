@@ -11,7 +11,7 @@ function GlobalFeed(props) {
     <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 global-feed">
       <div className="d-flex">
         <h5
-          className={!setTagName ? "global-feed-title" : null}
+          className={!setTagName ? "global-feed-title" : "customCursor"}
           onClick={() => fnFetchGlobalFeedData()}
         >
           Global Feed
