@@ -1,0 +1,8 @@
+.header {
+  margin-top: 20px;
+  &-left-section {
+    & > h2 {
+      color: #5cb85c;
+    }
+  }
+}

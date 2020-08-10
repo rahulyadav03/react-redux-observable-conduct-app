@@ -1,0 +1,47 @@
+/** Add Boostrap Styles */
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+@import "./Header/header";
+@import "./common/banner";
+@import "./Home/index";
+@import "./Auth/auth";
+@import "./Articles/index";
+
+.spanTitle {
+  color: #5cb85c;
+  text-decoration: none;
+  display: block;
+  font-weight: 500;
+}
+
+.titleColor {
+  color: #5cb85c;
+}
+
+.blackColor {
+  color: #000 !important;
+}
+
+.error-messages {
+  color: red;
+  text-align: center;
+
+  & > li {
+    list-style: none;
+  }
+}
+
+.myPaginationClass {
+  display: flex;
+  width: 30rem;
+  flex-wrap: wrap;
+}
+
+.paginationBtnColor {
+  color: #007bff !important;
+}
+
+.activePaginationColor {
+  background-color: #007bff !important;
+  color: #fff;
+}

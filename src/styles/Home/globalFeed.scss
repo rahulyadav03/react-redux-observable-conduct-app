@@ -1,0 +1,92 @@
+.global-feed {
+  &-title {
+    color: #5cb85c;
+    background: #fff;
+    border-bottom: 2px solid #5cb85c;
+  }
+}
+
+.feed-details {
+  margin-top: 20px;
+  &-header {
+    display: flex;
+    // background-color: green;
+
+    &-left-section {
+      display: flex;
+
+      &-img {
+        display: inline-block;
+        vertical-align: middle;
+        height: 32px;
+        width: 32px;
+        border-radius: 30px;
+      }
+
+      &-title {
+        margin-left: 10px;
+
+        & > span {
+          color: #bbb;
+          font-size: 0.8rem;
+          display: block;
+        }
+      }
+    }
+
+    &-right-section {
+      float: right;
+    }
+  }
+}
+
+.feed-title-section {
+  margin-top: 10px;
+  & > p {
+    font-weight: 300;
+    font-size: 24px;
+    color: #999;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.3rem;
+  }
+}
+
+.read-more-section {
+  display: flex;
+
+  & > p {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #bbb;
+    vertical-align: middle;
+  }
+}
+
+.tag-list {
+  max-width: 50%;
+  vertical-align: top;
+  padding-left: 0;
+  display: inline-block;
+  list-style: none;
+
+  & > li {
+    border: 1px solid #ddd;
+    color: #aaa;
+    background: 0 0;
+    display: inline-block;
+
+    font-weight: 300;
+    font-size: 0.8rem;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+
+    white-space: nowrap;
+    margin-right: 3px;
+    margin-bottom: 0.2rem;
+  }
+}
