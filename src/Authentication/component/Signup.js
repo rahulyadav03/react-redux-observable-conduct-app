@@ -4,6 +4,8 @@ import * as authActions from "../auth.actions";
 import serverApi from "../../common/utils/apiUrl";
 import ShowErrors from "../../common/components/ShowErrors";
 
+import * as authReducer from "../auth.reducers";
+
 function Signup() {
   const dispatch = useDispatch();
   const [loginWithEmail, setLoginWithEmail] = useState({
@@ -14,6 +16,9 @@ function Signup() {
 
   // Selector to fetch all Routes
   const errors = useSelector(state => state.auth.errors);
+
+  // Selector to fetch all Routes
+  const loadingFlag = useSelector(authReducer.fetchAuthLoadingFlag);
 
   /**
    * function to set value in setLoginwithEmail
@@ -27,6 +32,7 @@ function Signup() {
    */
   const handleSubmit = e => {
     e.preventDefault();
+    dispatch(authActions.setLoadingFlag(true));
     let data = {};
     data.user = { user: loginWithEmail };
     data.auth = serverApi.Auth.register;
@@ -74,8 +80,21 @@ function Signup() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className="btn btn-success auth-button">
-          Sign Up
+        <button
+          type="submit"
+          className="btn btn-success auth-button"
+          disabled={loadingFlag}
+        >
+          {loadingFlag && (
+            <>
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </>
+          )}
+          <span className="pl-2">Sign Up</span>
         </button>
       </form>
     </div>

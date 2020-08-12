@@ -36,13 +36,11 @@ function ListArticle(props) {
   return (
     <div>
       <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 artileBanner mt-2">
-        {userInfo && userInfo.profile && (
-          <Banner
-            title={userInfo.profile.username ? userInfo.profile.username : null}
-            url={userInfo.profile.image ? userInfo.profile.image : Logo}
-            heading=""
-          />
-        )}
+        <Banner
+          title={userInfo ? userInfo.profile.username : "welcome"}
+          url={userInfo ? userInfo.profile.image : Logo}
+          heading=""
+        />
 
         <div className="d-flex mt-5">
           <Link to={`/${id}/myArticle`} className="disabled-link">
@@ -66,17 +64,22 @@ function ListArticle(props) {
             </p>
           </Link>
         </div>
-        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-3">
-          {activeArticle === "myArticle" && (
-            <>
-              <Route path={`/${id}/myArticle`} component={MyArticles} />
-              <Redirect from={`/${id}`} to={`/${id}/myArticle`} />
-            </>
-          )}
-          {activeArticle === "favouriteArticle" && (
-            <Route path={`/${id}/myFavourite`} component={FavouriteArticles} />
-          )}
-        </div>
+        {userInfo && userInfo.profile && (
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-3">
+            {activeArticle === "myArticle" && (
+              <>
+                <Route path={`/${id}/myArticle`} component={MyArticles} />
+                <Redirect from={`/${id}`} to={`/${id}/myArticle`} />
+              </>
+            )}
+            {activeArticle === "favouriteArticle" && (
+              <Route
+                path={`/${id}/myFavourite`}
+                component={FavouriteArticles}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

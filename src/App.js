@@ -2,6 +2,10 @@ import React, { Suspense } from "react";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { withErrorBoundary } from "react-error-boundary";
 import { Provider } from "react-redux";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import store from "./ReduxFiles/store";
 import Header from "./Header/components/Header";
 import history from "./common/utils/history";
@@ -73,6 +77,7 @@ function App() {
               />
               <Route path="/:id" component={AListArticleWithErrorBoundary} />
             </Switch>
+            <ToastContainer autoclose={2000} hideProgressBar />
           </Router>
         </Provider>
       </div>

@@ -1,11 +1,14 @@
 import React from "react";
 import Feed from "../../common/components/Feed";
+import Loader from "../../common/components/Loader";
+
 function GlobalFeed(props) {
   const {
     allGlobalFeed,
     setTagName,
     fnFetchGlobalFeedData,
-    fnFavourite
+    fnFavourite,
+    loadingFlag
   } = props;
   return (
     <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 global-feed">
@@ -23,7 +26,14 @@ function GlobalFeed(props) {
         )}
       </div>
 
-      {allGlobalFeed &&
+      {loadingFlag && (
+        <div className="mt-5">
+          <Loader />
+        </div>
+      )}
+
+      {!loadingFlag &&
+        allGlobalFeed &&
         allGlobalFeed.articles.map((data, index) => (
           <Feed
             {...props}

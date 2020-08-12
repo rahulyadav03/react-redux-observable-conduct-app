@@ -33,4 +33,10 @@ export const registerError = createAction("[Auth, Signup] Register Error");
  */
 export const logout = createAction("[Auth, Header] logout");
 
+/**
+ * Loading flag
+ */
+
+export const setLoadingFlag = createAction("[Auth, Common] set loading flag");
+
 export const noop = createAction("NOOP");

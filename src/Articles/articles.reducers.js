@@ -1,4 +1,8 @@
-import { createEntityAdapter, createReducer } from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createReducer,
+  createSelector
+} from "@reduxjs/toolkit";
 import * as articleActions from "./acticles.actions";
 
 const userArticleEntityAdapter = createEntityAdapter();
@@ -8,7 +12,8 @@ const initialState = userArticleEntityAdapter.getInitialState({
   setCurrentPage: 0,
   favouriteArticle: null,
   articleDescription: null,
-  articleComments: null
+  articleComments: null,
+  loading: false
 });
 const reducers = {};
 
@@ -20,6 +25,7 @@ reducers[articleActions.fetchAllAuthorArticlesFullfilled] = function(
   action
 ) {
   state.userArticles = action.payload;
+  state.loading = false;
 };
 
 /**
@@ -42,6 +48,7 @@ reducers[articleActions.fetchArticleDescriptionsFullfilled] = function(
   action
 ) {
   state.articleDescription = action.payload;
+  state.loading = false;
 };
 
 /**
@@ -75,6 +82,7 @@ reducers[articleActions.saveCommentFullfilled] = function(state, action) {
  */
 reducers[articleActions.saveArticleFullfilled] = function(state, action) {
   state.articleDescription = action.payload;
+  state.loading = false;
 };
 
 /**
@@ -92,6 +100,19 @@ reducers[articleActions.setFavouriteArticleFullfilled] = function(
   action
 ) {
   state.userArticles = action.payload;
+};
+
+//selector for current page name
+const fetchArticleLoadingData = state => state.article.loading;
+export const fetchSetLoadingFalg = createSelector(
+  [fetchArticleLoadingData],
+  fetchArticleLoadingData => fetchArticleLoadingData
+);
+/**
+ * Reducer to store selected all articles.
+ */
+reducers[articleActions.setLoadingFlag] = function(state, action) {
+  state.loading = action.payload;
 };
 
 export default createReducer(initialState, reducers);

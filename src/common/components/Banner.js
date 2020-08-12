@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from "../../assets/smiley-cyrus.jpg";
 
 function Banner(props) {
   return (
@@ -7,7 +6,7 @@ function Banner(props) {
       {props.heading && <h1>{props.heading}</h1>}
       {props.url && (
         <img
-          src={Logo}
+          src={props.url}
           className="rounded-circle mt-3 bannerImg"
           alt="banner"
         />

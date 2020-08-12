@@ -14,21 +14,19 @@ import serverAPi from "../../common/utils/apiUrl";
 import * as homeReducer from "../home.reducers";
 import * as popularReducer from "../../common/tagsRedux/tags.reducers";
 
+/** Import toastify Library for showing success message */
+import { toast } from "react-toastify";
+
 function Main(props) {
   const { history } = props;
   const dispatch = useDispatch();
 
   const allTags = useSelector(popularReducer.fetchSetTagNameData);
-  //const allTags = useSelector(state => state.popularTags.allTags);
-
-  //const allGlobalFeed = useSelector(state => state.home.globalFeedData);
   const allGlobalFeed = useSelector(homeReducer.fetchAllGlobalFeedData);
-
-  //const setCurrentPage = useSelector(state => state.home.setCurrentPage);
   const setCurrentPage = useSelector(homeReducer.fetchCurrentPageData);
-
-  //const setTagName = useSelector(state => state.home.setTagName);
   const setTagName = useSelector(homeReducer.fetchSetTagNameData);
+
+  const loadingFlag = useSelector(homeReducer.fetchSetLoadingFalg);
 
   const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 
@@ -38,6 +36,7 @@ function Main(props) {
    * Effect to initiate fetching tags.
    */
   useEffect(() => {
+    dispatch(homeActions.setLoadingFlag(true));
     dispatch(homeActions.setTagName(null));
     dispatch(tagsActions.fetchAllTags());
     dispatch(homeActions.fetchAllGlobalFeed(globalFeedUrl));
@@ -51,10 +50,13 @@ function Main(props) {
     if (localStorage.getItem("username")) {
       dispatch(articleActions.setCurrentPageValue(0));
       history.push(`/${data.author.username}`);
+    } else {
+      toast.error("Please Login first to see the article description pages.");
     }
   };
 
   const setPagination = value => {
+    dispatch(homeActions.setLoadingFlag(true));
     dispatch(homeActions.setCurrentPageValue(value));
     let globalFeedUrl = serverAPi.Articles.all + limit(10, value);
     dispatch(homeActions.fetchAllGlobalFeed(globalFeedUrl));
@@ -66,6 +68,7 @@ function Main(props) {
    */
 
   const fnFetchGlobalFeedData = () => {
+    dispatch(homeActions.setLoadingFlag(true));
     dispatch(homeActions.setCurrentPageValue(0));
     dispatch(homeActions.setTagName(null));
     dispatch(homeActions.fetchAllGlobalFeed(globalFeedUrl));
@@ -76,6 +79,7 @@ function Main(props) {
    */
 
   const fnFetchTagData = tagName => {
+    dispatch(homeActions.setLoadingFlag(true));
     dispatch(homeActions.setCurrentPageValue(0));
     dispatch(homeActions.setTagName(tagName));
     let popularTagUrl = serverAPi.Articles.byTag + `${tagName}&` + limit(10, 0);
@@ -87,10 +91,12 @@ function Main(props) {
    */
 
   const fnFavourite = (e, data) => {
+    e.stopPropagation();
     if (localStorage.getItem("username")) {
-      e.stopPropagation();
       let favouriteUrl = serverAPi.Articles.favourite(data.slug);
       dispatch(homeActions.setFavouriteArticle(favouriteUrl));
+    } else {
+      toast.error("Please Login first to see the article description pages.");
     }
   };
 
@@ -113,12 +119,13 @@ function Main(props) {
             setTagName={setTagName}
             fnFetchGlobalFeedData={fnFetchGlobalFeedData}
             fnFavourite={fnFavourite}
+            loadingFlag={loadingFlag}
           />
           <PopularTag allTags={allTags} fnFetchTagData={fnFetchTagData} />
         </div>
       </div>
 
-      {allGlobalFeed && (
+      {!loadingFlag && allGlobalFeed && (
         <Pagination
           totalPaginationCount={allGlobalFeed.articlesCount}
           setPagination={setPagination}

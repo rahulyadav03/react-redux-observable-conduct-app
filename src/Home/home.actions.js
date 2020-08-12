@@ -54,4 +54,12 @@ export const setFavouriteArticleError = createAction(
   "[Home, GlobalFeed] there is some error while saving favourite article count"
 );
 
+/**
+ * Loading flag
+ */
+
+export const setLoadingFlag = createAction(
+  "[Home, GlobalFeed] set loading flag"
+);
+
 export const noop = createAction("NOOP");

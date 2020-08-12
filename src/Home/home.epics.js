@@ -163,3 +163,16 @@ export const setFavouriteArticleErrorEpic = (action$, state$) =>
       return of(homeActions.noop());
     })
   );
+
+/**
+ *
+ * @param {set Loading Flag Value} action$
+ */
+export function setLoadingFlagEpic(action$) {
+  return action$.pipe(
+    ofType(homeActions.setLoadingFlag),
+    mergeMap(action => {
+      return of(homeActions.noop());
+    })
+  );
+}

@@ -46,7 +46,7 @@ function Feed(props) {
         <p className="flex-grow-1">Read More....</p>
         <ul className="tag-list">
           {data.tagList.map((value, index) => (
-            <li key={index}>value</li>
+            <li key={index}>{value}</li>
           ))}
         </ul>
       </div>

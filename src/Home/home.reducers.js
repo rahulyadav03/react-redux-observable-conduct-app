@@ -11,7 +11,8 @@ const initialState = homeEntityAdapter.getInitialState({
   globalFeedData: null,
   errors: null,
   setCurrentPage: 0,
-  setTagName: null
+  setTagName: null,
+  loading: false
 });
 const reducers = {};
 
@@ -21,6 +22,7 @@ const reducers = {};
  */
 reducers[homeActions.fetchAllGlobalFeedFullfilled] = function(state, action) {
   state.globalFeedData = action.payload;
+  state.loading = false;
 };
 
 const allGlobalData = state => state.home.globalFeedData;
@@ -65,6 +67,21 @@ export const fetchSetTagNameData = createSelector(
 
 reducers[homeActions.setFavouriteArticleFullfilled] = function(state, action) {
   state.globalFeedData = action.payload;
+};
+
+/**
+ * SeT Favourite article Count
+ */
+
+//selector for current page name
+const fetchLoadingData = state => state.home.loading;
+export const fetchSetLoadingFalg = createSelector(
+  [fetchLoadingData],
+  fetchLoadingData => fetchLoadingData
+);
+
+reducers[homeActions.setLoadingFlag] = function(state, action) {
+  state.loading = action.payload;
 };
 
 export default createReducer(initialState, reducers);

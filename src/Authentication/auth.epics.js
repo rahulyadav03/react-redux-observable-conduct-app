@@ -7,10 +7,11 @@ import { constructError } from "../common/utils/constructError";
 import { mergeMap, switchMap, tap, map, catchError } from "rxjs/operators";
 import { of, from } from "rxjs";
 
-//import { fetchLogin } from "../common/utils/axiosApi";
-
 import history from "../common/utils/history";
 import { ROUTES } from "../common/constants";
+
+/** Import toastify Library for showing success message */
+import { toast } from "react-toastify";
 
 import * as profileActions from "../common/ProfileStore/profile.actions";
 
@@ -60,6 +61,7 @@ export const loginSuccesfullyEpic = (action$, state$) =>
   action$.pipe(
     ofType(authActions.loginSuccesfully),
     tap(() => {
+      toast.success("Login Succesfully...");
       history.push(ROUTES.HOME);
     }),
     mergeMap(action => {
@@ -89,3 +91,16 @@ export const logoutEpic = (action$, state$) =>
       return of(profileActions.noop());
     })
   );
+
+/**
+ *
+ * @param {set Loading Flag Value} action$
+ */
+export function setLoadingFlagEpic(action$) {
+  return action$.pipe(
+    ofType(authActions.setLoadingFlag),
+    mergeMap(action => {
+      return of(authActions.noop());
+    })
+  );
+}

@@ -154,4 +154,12 @@ export const setFavouriteArticleError = createAction(
   "[Articles, MyArticle] there is some error while saving favourite article count"
 );
 
+/**
+ * Loading flag
+ */
+
+export const setLoadingFlag = createAction(
+  "[Articles, MyArticle] set loading flag"
+);
+
 export const noop = createAction("NOOP");

@@ -4,6 +4,10 @@ import serverApi from "../../common/utils/apiUrl";
 
 import * as articleActions from "../acticles.actions";
 
+import Loader from "../../common/components/Loader";
+
+import * as articleReducer from "../articles.reducers";
+
 function ArticleDescription(props) {
   const { history } = props;
   const [comment, setComment] = useState("");
@@ -20,11 +24,14 @@ function ArticleDescription(props) {
 
   const articleComments = useSelector(state => state.article.articleComments);
 
+  const loadingFlag = useSelector(articleReducer.fetchSetLoadingFalg);
+
   let username = localStorage.getItem("username");
   /**
    * Effect to initiate fetching User data.
    */
   useEffect(() => {
+    dispatch(articleActions.setLoadingFlag(true));
     dispatch(articleActions.fetchArticleDescription(articleDescriptionUrl));
     dispatch(articleActions.fetchArticleComments(articleCommentUrl));
   }, [dispatch, articleDescriptionUrl]);
@@ -59,7 +66,7 @@ function ArticleDescription(props) {
     dispatch(articleActions.deleteArticle(deleteUrl));
   };
 
-  if (articleDescription) {
+  if (!loadingFlag && articleDescription) {
     return (
       <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 banner mt-2 article-decp">
         <h1 className="pt-2">{articleDescription.article.title}</h1>
@@ -90,14 +97,14 @@ function ArticleDescription(props) {
                 }
               >
                 <i className="fa fa-pencil" aria-hidden="true"></i>
-                Edit Article
+                <span className="p-2">Edit Article</span>
               </button>
               <button
                 className="ml-3 btn btn-sm btn-outline-danger"
                 onClick={() => deleteArticle(articleDescription.article.slug)}
               >
                 <i className="fa fa-trash" aria-hidden="true"></i>
-                Delete Article
+                <span className="p-2">Delete Article</span>
               </button>
             </>
           )}
@@ -206,7 +213,7 @@ function ArticleDescription(props) {
                         </div>
 
                         <div
-                          className="blackColor"
+                          className="blackColor customCursor"
                           onClick={() => fnDeleteComment(comment.id)}
                         >
                           <i className="fa fa-trash-o" aria-hidden="true"></i>
@@ -221,7 +228,11 @@ function ArticleDescription(props) {
       </div>
     );
   } else {
-    return null;
+    return (
+      <div className="d-flex justify-content-center mt-5">
+        <Loader />
+      </div>
+    );
   }
 }
 

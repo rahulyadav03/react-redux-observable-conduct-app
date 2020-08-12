@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import * as articleActions from "../acticles.actions";
 import serverAPi from "../../common/utils/apiUrl";
 
+import * as articleReducer from "../articles.reducers";
+
 function ArticleForm(props) {
   const { newArticleFields, tagListArray, update, id } = props;
   const dispatch = useDispatch();
   const [articleFields, setArticleFields] = useState(newArticleFields);
   const [tagList, setTagList] = useState(tagListArray);
   const [tagInputField, setTagInputField] = useState("");
+
+  const loadingFlag = useSelector(articleReducer.fetchSetLoadingFalg);
 
   /***
    * below function handle article input value
@@ -43,6 +47,7 @@ function ArticleForm(props) {
    */
 
   const createArticle = e => {
+    dispatch(articleActions.setLoadingFlag(true));
     if (!update) {
       let payload = {};
       let createArticleUrl = serverAPi.Articles.createArticles();
@@ -121,8 +126,24 @@ function ArticleForm(props) {
       <button
         className="btn btn-success article-button"
         onClick={createArticle}
+        disabled={
+          !(
+            articleFields.title &&
+            articleFields.description &&
+            articleFields.body
+          ) || loadingFlag
+        }
       >
-        Publish Article
+        {loadingFlag && (
+          <>
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          </>
+        )}
+        <span className="pl-2">Publish Article</span>
       </button>
     </div>
   );

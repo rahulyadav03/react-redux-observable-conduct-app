@@ -17,7 +17,7 @@ function Pagination(props) {
         <ul className="pagination myPaginationClass">
           {range.map(value => (
             <li
-              className="page-item"
+              className="page-item customCursor"
               key={value}
               onClick={() => setPagination(value)}
             >

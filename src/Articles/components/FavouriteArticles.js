@@ -7,6 +7,9 @@ import * as articleActions from "../acticles.actions";
 import Pagination from "../../common/components/Pagination";
 
 import Feed from "../../common/components/Feed";
+import Loader from "../../common/components/Loader";
+
+import * as articleReducer from "../articles.reducers";
 
 function FavouriteArticles(props) {
   const { history } = props;
@@ -18,14 +21,18 @@ function FavouriteArticles(props) {
 
   const setCurrentPage = useSelector(state => state.article.setCurrentPage);
 
+  const loadingFlag = useSelector(articleReducer.fetchSetLoadingFalg);
+
   /**
    * Effect to initiate fetching tags.
    */
   useEffect(() => {
+    dispatch(articleActions.setLoadingFlag(true));
     dispatch(articleActions.fetchAllAuthorArticles(favouriteArticleUrl));
   }, [dispatch, favouriteArticleUrl]);
 
   const setPagination = value => {
+    dispatch(articleActions.setLoadingFlag(true));
     dispatch(articleActions.setCurrentPageValue(value));
     favouriteArticleUrl = serverApi.Articles.articlesAuthor(id, value);
     dispatch(articleActions.fetchAllAuthorArticles(favouriteArticleUrl));
@@ -45,7 +52,7 @@ function FavouriteArticles(props) {
     dispatch(articleActions.setFavouriteArticle(favouriteUrl));
   };
 
-  if (userArticle) {
+  if (!loadingFlag && userArticle) {
     return (
       <>
         {userArticle.articles.length === 0 && (
@@ -68,7 +75,11 @@ function FavouriteArticles(props) {
       </>
     );
   } else {
-    return null;
+    return (
+      <div className="mt-5">
+        <Loader />
+      </div>
+    );
   }
 }
 

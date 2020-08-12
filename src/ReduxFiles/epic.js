@@ -10,6 +10,7 @@ const rootEpic = combineEpics(
   authEpics.loginSuccesfullyEpic,
   authEpics.loginErrorEpic,
   authEpics.logoutEpic,
+  authEpics.setLoadingFlagEpic,
 
   //Tags Epic
   tagsEpic.fetchAllTagsEpic,
@@ -22,6 +23,7 @@ const rootEpic = combineEpics(
   homeEpic.fetchAllGlobalFeedErrorEpic,
   homeEpic.setCurrentPageValueEpic,
   homeEpic.setTagNameEpic,
+  homeEpic.setLoadingFlagEpic,
 
   homeEpic.setFavouriteArticleEpic,
   homeEpic.setFavouriteArticleFullfilledEpic,
@@ -52,6 +54,7 @@ const rootEpic = combineEpics(
   articlesEpic.saveArticleEpic,
   articlesEpic.saveArticleFullfilledEpic,
   articlesEpic.saveArticleErrorEpic,
+  articlesEpic.setLoadingFlagEpic,
 
   articlesEpic.deleteArticleEpic,
   articlesEpic.deleteArticleFullfilledEpic,

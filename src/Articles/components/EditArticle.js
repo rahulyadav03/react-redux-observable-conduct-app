@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ArticleForm from "./ArticleForm";
 
 function EditArticle() {
-  console.log("hahaha");
   const dispatch = useDispatch();
   // Selector to fetch all Routes
   const articleDescription = useSelector(
